@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface MoleculeProps {
@@ -18,7 +17,7 @@ const Molecule: React.FC<MoleculeProps> = ({
   type, 
   animated = false 
 }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (meshRef.current && animated) {
@@ -34,40 +33,48 @@ const Molecule: React.FC<MoleculeProps> = ({
       case 'CO2':
         return (
           <group ref={meshRef} position={position}>
-            <Sphere args={[size]} position={[0, 0, 0]}>
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[size]} />
               <meshStandardMaterial color="#333" />
-            </Sphere>
-            <Sphere args={[size * 0.7]} position={[-size * 1.5, 0, 0]}>
+            </mesh>
+            <mesh position={[-size * 1.5, 0, 0]}>
+              <sphereGeometry args={[size * 0.7]} />
               <meshStandardMaterial color="#ff0000" />
-            </Sphere>
-            <Sphere args={[size * 0.7]} position={[size * 1.5, 0, 0]}>
+            </mesh>
+            <mesh position={[size * 1.5, 0, 0]}>
+              <sphereGeometry args={[size * 0.7]} />
               <meshStandardMaterial color="#ff0000" />
-            </Sphere>
+            </mesh>
           </group>
         );
       case 'H2O':
         return (
           <group ref={meshRef} position={position}>
-            <Sphere args={[size * 0.8]} position={[0, 0, 0]}>
+            <mesh position={[0, 0, 0]}>
+              <sphereGeometry args={[size * 0.8]} />
               <meshStandardMaterial color="#ff0000" />
-            </Sphere>
-            <Sphere args={[size * 0.5]} position={[-size, size * 0.7, 0]}>
+            </mesh>
+            <mesh position={[-size, size * 0.7, 0]}>
+              <sphereGeometry args={[size * 0.5]} />
               <meshStandardMaterial color="#ffffff" />
-            </Sphere>
-            <Sphere args={[size * 0.5]} position={[size, size * 0.7, 0]}>
+            </mesh>
+            <mesh position={[size, size * 0.7, 0]}>
+              <sphereGeometry args={[size * 0.5]} />
               <meshStandardMaterial color="#ffffff" />
-            </Sphere>
+            </mesh>
           </group>
         );
       case 'O2':
         return (
           <group ref={meshRef} position={position}>
-            <Sphere args={[size]} position={[-size * 0.7, 0, 0]}>
+            <mesh position={[-size * 0.7, 0, 0]}>
+              <sphereGeometry args={[size]} />
               <meshStandardMaterial color="#00ff00" />
-            </Sphere>
-            <Sphere args={[size]} position={[size * 0.7, 0, 0]}>
+            </mesh>
+            <mesh position={[size * 0.7, 0, 0]}>
+              <sphereGeometry args={[size]} />
               <meshStandardMaterial color="#00ff00" />
-            </Sphere>
+            </mesh>
           </group>
         );
       case 'glucose':
@@ -79,18 +86,22 @@ const Molecule: React.FC<MoleculeProps> = ({
               const x = Math.cos(angle) * size * 1.5;
               const z = Math.sin(angle) * size * 1.5;
               return (
-                <Sphere key={i} args={[size * 0.6]} position={[x, 0, z]}>
+                <mesh key={i} position={[x, 0, z]}>
+                  <sphereGeometry args={[size * 0.6]} />
                   <meshStandardMaterial color="#ffff00" />
-                </Sphere>
+                </mesh>
               );
             })}
           </group>
         );
       default:
         return (
-          <Sphere ref={meshRef} args={[size]} position={position}>
-            <meshStandardMaterial color={color} />
-          </Sphere>
+          <group ref={meshRef} position={position}>
+            <mesh>
+              <sphereGeometry args={[size]} />
+              <meshStandardMaterial color={color} />
+            </mesh>
+          </group>
         );
     }
   };
