@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
 import Molecule from './Molecule';
 
@@ -41,19 +40,20 @@ const Chloroplast: React.FC<ChloroplastProps> = ({
       {[...Array(5)].map((_, i) => (
         <group key={i} position={[0, (i - 2) * 0.4, 0]}>
           {/* Thylakoid disc */}
-          <Cylinder args={[0.8, 0.8, 0.1, 32]} rotation={[Math.PI / 2, 0, 0]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.8, 0.8, 0.1, 32]} />
             <meshStandardMaterial color="#2E7D32" transparent opacity={0.6} />
-          </Cylinder>
+          </mesh>
           
           {/* Grana stack connection */}
           {i < 4 && (
-            <Cylinder 
-              args={[0.1, 0.1, 0.3, 8]} 
+            <mesh 
               position={[0.5, 0.2, 0]}
               rotation={[Math.PI / 2, 0, 0]}
             >
+              <cylinderGeometry args={[0.1, 0.1, 0.3, 8]} />
               <meshStandardMaterial color="#1B5E20" />
-            </Cylinder>
+            </mesh>
           )}
         </group>
       ))}
@@ -119,13 +119,14 @@ const Chloroplast: React.FC<ChloroplastProps> = ({
         const x = Math.cos(angle) * radius;
         const z = Math.sin(angle) * radius;
         return (
-          <Sphere key={i} args={[0.08]} position={[x, 0, z]}>
+          <mesh key={i} position={[x, 0, z]}>
+            <sphereGeometry args={[0.08]} />
             <meshStandardMaterial 
               color="#00ff00" 
               emissive="#004400"
               emissiveIntensity={0.3}
             />
-          </Sphere>
+          </mesh>
         );
       })}
     </group>
