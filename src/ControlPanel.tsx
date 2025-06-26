@@ -24,9 +24,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   const stages = [
     { id: 0, name: 'Initial State', description: 'Chloroplast at rest' },
     { id: 1, name: 'Light Absorption', description: 'Sunlight hits chloroplasts' },
-    { id: 2, name: 'Water Splitting', description: 'H2O → H+ + OH-' },
+    { id: 2, name: 'Water Splitting', description: 'H2O splits into H+ and OH-' },
     { id: 3, name: 'CO2 Fixation', description: 'CO2 enters the reaction' },
-    { id: 4, name: 'Glucose Formation', description: 'C6H12O6 + O2 produced' }
+    { id: 4, name: 'Glucose Formation', description: 'C6H12O6 and O2 produced' }
   ];
 
   return (
